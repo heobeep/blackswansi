@@ -1,0 +1,35 @@
+# BlackSwanSI on a PAID Render instance with a persistent disk (sturdier; no sleeping, no data loss).
+# Use by renaming this file to render.yaml, or follow the "Upgrade" section of DEPLOY_BLACKSWANSI.md.
+services:
+  - type: web
+    name: blackswansi
+    runtime: docker
+    plan: starter
+    region: singapore
+    healthCheckPath: /health
+    autoDeploy: false
+    disk:
+      name: botdata
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: DEV_MODE
+        value: "false"
+      - key: DATABASE_PATH
+        value: /data/trading_bot.db
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_IDS
+        sync: false
+      - key: ENCRYPTION_KEY       # must be the SAME value you used on the free plan
+        sync: false
+      - key: WEBHOOK_SECRET
+        generateValue: true
+      - key: BACKUP_TO_TELEGRAM   # still useful as a second copy
+        value: "true"
+      - key: KEEPALIVE
+        value: "false"
+      - key: ALLOW_LIVE_TRADING
+        value: "false"
+      - key: ENABLE_EARN
+        value: "false"

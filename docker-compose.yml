@@ -1,0 +1,28 @@
+services:
+  bot:
+    build: .
+    container_name: blackswansi
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:          # only what the entrypoint needs to fix disk ownership and drop to the bot user
+      - CHOWN
+      - SETUID
+      - SETGID
+    env_file:
+      - .env
+    ports:
+      - "${WEB_PORT:-8000}:8000"
+    volumes:
+      # Persist the SQLite database across restarts
+      - ./data:/bot/data
+    environment:
+      - DEV_MODE=false
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os,urllib.request; urllib.request.urlopen('http://localhost:%s/health' % (os.getenv('WEB_PORT') or os.getenv('PORT') or '8000'))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

@@ -1,0 +1,21 @@
+{
+  "max_open_trades": 10,
+  "stake_currency": "USDT",
+  "stake_amount": "unlimited",
+  "tradable_balance_ratio": 1.0,
+  "fiat_display_currency": "",
+  "dry_run": true,
+  "dry_run_wallet": 10000,
+  "trading_mode": "spot",
+  "timeframe": "1d",
+  "cancel_open_orders_on_exit": false,
+  "exchange": {
+    "name": "binance",
+    "key": "", "secret": "",
+    "pair_whitelist": ["BTC/USDT","ETH/USDT","BNB/USDT","SOL/USDT","XRP/USDT","ADA/USDT","DOGE/USDT","AVAX/USDT","LINK/USDT","DOT/USDT"],
+    "pair_blacklist": []
+  },
+  "entry_pricing": {"price_side": "same", "use_order_book": false},
+  "exit_pricing": {"price_side": "same", "use_order_book": false},
+  "pairlists": [{"method": "StaticPairList"}]
+}
